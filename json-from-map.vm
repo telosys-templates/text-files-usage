@@ -1,0 +1,61 @@
+--------------------------------------------------------------------------
+JSON test  ( Bundle name : "$bundle.name" )  
+Generated on $now.date ( $now.time ) Telosys ver $generator.version
+--------------------------------------------------------------------------
+## --- JSON literal stored in a Velocity variable
+#set( $json = 
+{  
+   "title" : "My title bla bla",
+   "version"  :"1.0.0",
+   "data": {  
+        "firstName" : {  
+            "type"  : "string",
+            "value" : "Bart"
+         }, 
+        "lastName" : {  
+            "type"  : "string",
+            "value" : "Simpson"
+         }, 
+        "age" : {  
+            "type"  : "int",
+            "value" : "16"
+         }
+    }
+} 
+)
+##-----------------------------------------
+"json" variable type : $json.getClass().getCanonicalName()
+
+"json" variable content : 
+$json
+
+Simple Dot-Notation access to JSON data :
+ - json.title   : "$json.title"
+ - json.version : "$json.version"
+ - json.data.firstName : "$json.data.firstName"
+ - json.data.firstName.value : "$json.data.firstName.value"
+ - json.data.firstName.type  : "$json.data.firstName.type"
+
+For each object in "data" :
+#foreach($o in $json.data)
+ - object = "$o"
+#end
+
+For each key in "data" :
+#foreach($key in $json.data.keySet())
+ - key = "$key"
+#end
+
+For each key + object in "data" :
+#foreach($key in $json.data.keySet())
+ - "$key" --> "$json.data.get($key)"
+#end
+
+For each key + object in "data" :
+#foreach($key in $json.data.keySet())
+#set($o = $json.data.get($key) )
+ - "$key" : 
+    . type  : "$o.type"
+    . value : "$o.value"
+#end
+--------------------------------------------------------------------------

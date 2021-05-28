@@ -1,0 +1,45 @@
+--------------------------------------------------------------------------
+FILE TEST with "fn.fileFromBundle" and "text file"
+Generated on $now.date ( $now.time ) Telosys ver $generator.version
+--------------------------------------------------------------------------
+Bundle name : "$bundle.name" 
+Project :
+ - location         : $project.locationFullPath
+ - models folder    : $project.modelsFolderFullPath
+ - templates folder : $project.templatesFolderFullPath
+--------------------------------------------------------------------------
+Load file located in the current BUNDLE : "$bundle.name"
+#set( $file = $fn.fileFromBundle("foo.txt") )
+File : 
+file.name          : $file.name
+file.parent        : $file.parent
+file.path          : $file.path
+file.absolutePath  : $file.absolutePath
+file.canonicalPath : $file.canonicalPath
+file.exists()      : $file.exists()
+file.isFile()      : $file.isFile()
+file.isDirectory() : $file.isDirectory()
+file.isHidden()    : $file.isHidden()
+file.length        : $file.length
+--------------------------------------------------------------------------
+file.loadContent() : 
+#if( $file.exists() && $file.isFile() )
+#set($content = $file.loadContent() )
+${content}## NO EOL
+#end
+--------------------------------------------------------------------------
+file.loadContent(2) : 
+#if( $file.exists() && $file.isFile() )
+$file.loadContent(2)## NO EOL
+#end
+--------------------------------------------------------------------------
+file.loadLines() : 
+#foreach ( $line in $file.loadLines() )
+ > $line
+#end
+--------------------------------------------------------------------------
+file.loadLines(3) : 
+#foreach ( $line in $file.loadLines(3) )
+ > $line
+#end
+--------------------------------------------------------------------------

@@ -1,0 +1,48 @@
+--------------------------------------------------------------------------
+JSON test  ( Bundle name : "$bundle.name" )  
+Generated on $now.date ( $now.time ) Telosys ver $generator.version
+--------------------------------------------------------------------------
+Load JSON file located in the current BUNDLE : $bundle.name
+#set( $jsonFromFile = $fn.fileFromBundle("foo.json").loadContent() )
+"jsonFromFile" variable type : $jsonFromFile.getClass().getCanonicalName()
+
+Use 'evaluate(statement)' to convert the file content in VTL map
+#set( $statement = '#set($json = ' + $jsonFromFile + ')' )
+#evaluate( $statement )
+
+##-----------------------------------------
+"json" variable type : $json.getClass().getCanonicalName()
+
+"json" variable content : 
+$json
+
+Simple Dot-Notation access to JSON data :
+ - json.title   : "$json.title"
+ - json.version : "$json.version"
+ - json.data.firstName : "$json.data.firstName"
+ - json.data.firstName.value : "$json.data.firstName.value"
+ - json.data.firstName.type  : "$json.data.firstName.type"
+
+For each object in "data" :
+#foreach($o in $json.data)
+ - object = "$o"
+#end
+
+For each key in "data" :
+#foreach($key in $json.data.keySet())
+ - key = "$key"
+#end
+
+For each key + object in "data" :
+#foreach($key in $json.data.keySet())
+ - "$key" --> "$json.data.get($key)"
+#end
+
+For each key + object in "data" :
+#foreach($key in $json.data.keySet())
+#set($o = $json.data.get($key) )
+ - "$key" : 
+    . type  : "$o.type"
+    . value : "$o.value"
+#end
+--------------------------------------------------------------------------

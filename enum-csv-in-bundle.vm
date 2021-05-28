@@ -1,0 +1,38 @@
+--------------------------------------------------------------------------
+FILE TEST with "fn.fileFromBundle" and "text file"
+Generated on $now.date ( $now.time ) Telosys ver $generator.version
+--------------------------------------------------------------------------
+Bundle name : "$bundle.name" 
+Project :
+ - location         : $project.locationFullPath
+ - models folder    : $project.modelsFolderFullPath
+ - templates folder : $project.templatesFolderFullPath
+--------------------------------------------------------------------------
+Load file located in the current BUNDLE : "$bundle.name"
+#set( $file = $fn.fileFromBundle("enum-csv.txt") )
+File : 
+file.name          : $file.name
+file.parent        : $file.parent
+file.path          : $file.path
+file.absolutePath  : $file.absolutePath
+file.canonicalPath : $file.canonicalPath
+file.exists()      : $file.exists()
+file.isFile()      : $file.isFile()
+file.isDirectory() : $file.isDirectory()
+file.isHidden()    : $file.isHidden()
+file.length        : $file.length
+--------------------------------------------------------------------------
+file.loadContent() : 
+#if( $file.exists() && $file.isFile() )
+$file.loadContent() ##
+#end
+--------------------------------------------------------------------------
+file.loadValues(",", 1) (ignore the first line) : 
+#set( $lines = $file.loadValues(",", 1) )
+enum State {
+#foreach ( $line in $lines )
+ $line.get(0) = $line.get(1)#if( $foreach.count < $lines.size() ) ,
+#else }
+#end
+#end
+--------------------------------------------------------------------------

@@ -1,0 +1,3 @@
+id, errcode, enumname, shortdescr, longdescr
+1, 0x101, ERR1, message 1, long description 1
+4, 0x109, ERR4, message 4, long description 4

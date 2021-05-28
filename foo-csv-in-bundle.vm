@@ -1,0 +1,62 @@
+--------------------------------------------------------------------------
+FILE TEST with "fn.fileFromBundle" and "text file"
+Generated on $now.date ( $now.time ) Telosys ver $generator.version
+--------------------------------------------------------------------------
+Bundle name : "$bundle.name" 
+Project :
+ - location         : $project.locationFullPath
+ - models folder    : $project.modelsFolderFullPath
+ - templates folder : $project.templatesFolderFullPath
+--------------------------------------------------------------------------
+Load file located in the current BUNDLE : "$bundle.name"
+#set( $file = $fn.fileFromBundle("foo.csv") )
+File : 
+file.name          : $file.name
+file.parent        : $file.parent
+file.path          : $file.path
+file.absolutePath  : $file.absolutePath
+file.canonicalPath : $file.canonicalPath
+file.exists()      : $file.exists()
+file.isFile()      : $file.isFile()
+file.isDirectory() : $file.isDirectory()
+file.isHidden()    : $file.isHidden()
+file.length        : $file.length
+--------------------------------------------------------------------------
+file.loadContent() : 
+#if( $file.exists() && $file.isFile() )
+#set($content = $file.loadContent() )
+${content}##
+#end
+--------------------------------------------------------------------------
+file.loadContent(2) (ignore 2 first lines) : 
+#if( $file.exists() && $file.isFile() )
+$file.loadContent(2)##
+#end
+--------------------------------------------------------------------------
+file.loadLines() : 
+#foreach ( $line in $file.loadLines() )
+ > $line
+#end
+--------------------------------------------------------------------------
+file.loadLines(3) (ignore 3 first lines) : 
+#foreach ( $line in $file.loadLines(3) )
+ > $line
+#end
+--------------------------------------------------------------------------
+file.loadValues(";", 1) : 
+#set( $csv = $file.loadValues(";", 1) )
+#foreach ( $line in $csv )
+ |#foreach ( $v in $line ) $v |#end
+
+#end
+--------------------------------------------------------------------------
+file.loadValues(";", 1) (ignore the first line): 
+#set( $file = $fn.fileFromBundle("enum-csv.txt") )
+#set( $lines = $file.loadValues(",", 1) )
+enum State {
+#foreach ( $line in $lines )
+ $line.get(0) = $line.get(1)#if( $foreach.count < $lines.size() ) ,
+#else }
+#end
+#end
+--------------------------------------------------------------------------

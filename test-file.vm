@@ -1,0 +1,77 @@
+--------------------------------------------------------------------------
+FILE test  
+Generated on $now.date ( $now.time ) Telosys ver $generator.version
+Bundle name : "$bundle.name" 
+Project :
+ - location         : $project.locationFullPath
+ - models folder    : $project.modelsFolderFullPath
+ - templates folder : $project.templatesFolderFullPath
+--------------------------------------------------------------------------
+File from current BUNDLE "$bundle.name" : ${DOLLAR}fn.fileFromBundle("foo.txt")
+#set( $file = $fn.fileFromBundle("foo.txt") )
+File : 
+file.name          : $file.name
+file.parent        : $file.parent
+file.path          : $file.path
+file.absolutePath  : $file.absolutePath
+file.canonicalPath : $file.canonicalPath
+file.exists()      : $file.exists()
+file.isFile()      : $file.isFile()
+file.isDirectory() : $file.isDirectory()
+file.isHidden()    : $file.isHidden()
+file.length        : $file.length
+## Load file content : OK
+#set($content = $file.loadContent() )
+#set($lines = $file.loadLines() )
+--------------------------------------------------------------------------
+File from current MODEL "$model.name" : ${DOLLAR}fn.fileFromModel("foo.txt")
+#set( $file = $fn.fileFromModel("foo.txt") )
+File : 
+file.name          : $file.name
+file.parent        : $file.parent
+file.path          : $file.path
+file.absolutePath  : $file.absolutePath
+file.canonicalPath : $file.canonicalPath
+file.exists()      : $file.exists()
+file.isFile()      : $file.isFile()
+file.isDirectory() : $file.isDirectory()
+file.isHidden()    : $file.isHidden()
+file.length        : $file.length
+## Load file content : ERROR "file not found"
+## #set($content = $file.loadContent() )
+## #set($lines = $file.loadLines() )
+--------------------------------------------------------------------------
+File from current PROJECT : ${DOLLAR}fn.file("foo.txt") (relative path)
+#set( $file = $fn.file("foo.txt") )
+File : 
+file.name          : $file.name
+file.parent        : $file.parent
+file.path          : $file.path
+file.absolutePath  : $file.absolutePath
+file.canonicalPath : $file.canonicalPath
+file.exists()      : $file.exists()
+file.isFile()      : $file.isFile()
+file.isDirectory() : $file.isDirectory()
+file.isHidden()    : $file.isHidden()
+file.length        : $file.length
+## Load file content : ERROR "file not found"
+## #set($content = $file.loadContent() )
+## #set($lines = $file.loadLines() )
+--------------------------------------------------------------------------
+File from anywhere : ${DOLLAR}fn.file('C:\Temp\foo.txt') (absolute path)
+#set( $file = $fn.file('C:\Temp\foo.txt') )
+File : 
+file.name          : $file.name
+file.parent        : $file.parent
+file.path          : $file.path
+file.absolutePath  : $file.absolutePath
+file.canonicalPath : $file.canonicalPath
+file.exists()      : $file.exists()
+file.isFile()      : $file.isFile()
+file.isDirectory() : $file.isDirectory()
+file.isHidden()    : $file.isHidden()
+file.length        : $file.length
+## Load file content : ERROR "file not found"
+## #set($content = $file.loadContent() )
+## #set($lines = $file.loadLines() )
+--------------------------------------------------------------------------
